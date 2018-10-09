@@ -6,11 +6,7 @@ class ListView extends Component {
       <div className="locationList">
         <h1>Hillcrest Locations</h1>
         <ul>
-            <li>Location</li>
-            <li>Location</li>
-            <li>Location</li>
-            <li>Location</li>
-            <li>Location</li>
+            { this.props.locations.map(location=> <li key={location.id}>{location.name}</li>) }
         </ul>
       </div>
     );

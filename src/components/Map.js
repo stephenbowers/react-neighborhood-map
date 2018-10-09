@@ -20,10 +20,12 @@ const MyMapComponent = withScriptjs(withGoogleMap((props) =>
 ))
 
 export default class Map extends Component {
+
     render() {
         const mapHeight = window.innerHeight;
         return(
             <MyMapComponent
+                locations={this.props.locations}
                 isMarkerShown
                 googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyBPoQWOSF6VDoZE_Z_FUKv8rLTvlDFuf_I"
                 loadingElement={<div style={{ height: `100%` }} />}
