@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 
 class ListView extends Component {
+
+  
+
   render() {
     return (
       <div className="locationList">
@@ -13,12 +16,26 @@ class ListView extends Component {
             value={this.props.query}
             onChange={(event) => this.props.getSearchResults(event.target.value)}
           />
-
         </div>
 
-        <div>
+        <div className="searchResults">
           <ul>
-              { this.props.locations.map(location=> <li key={location.id}>{location.name}</li>) }
+              {/* 
+                TODO: When location clicked (div becomes 'active'), more info is displayed
+              */}
+              { this.props.locations.map(location=> 
+                  <div 
+                    key={location.id}
+                    className="locationResult"
+                    onClick={(event) => this.props.setActiveLocation(location)}
+                  >
+                    <p 
+                      className="locationName"
+                    >
+                      {location.name}
+                    </p>
+                  </div>) 
+              }
           </ul>
         </div>
         

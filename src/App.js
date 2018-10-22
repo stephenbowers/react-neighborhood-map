@@ -18,12 +18,12 @@ class App extends Component {
     super(props);
     this.state = {
         locations: [],
-        query: ''
+        query: '',
+        activeLocation: []
     };
   }
 
   componentDidMount() {
-    console.log(params.query)
     foursquare.venues.getVenues(params)
         .then(res=> {
             this.setState({ locations: res.response.venues });
@@ -49,6 +49,20 @@ class App extends Component {
     
   }
 
+  setActiveMarker = (location) => {
+    let newActiveMarker = [];
+
+    newActiveMarker.push(location);
+    this.setState({ activeLocation: newActiveMarker});
+  }
+
+  setActiveLocation = (location) => {
+    console.log("The Active Location is: " + location.name);
+    console.log(location);
+    // Toggle active class on sidebar info
+    this.setActiveMarker(location);
+  }
+
   render() {
     return (
       <div className="App">
@@ -57,11 +71,13 @@ class App extends Component {
             locations={this.state.locations}
             query={this.state.query}
             getSearchResults={this.getSearchResults}
+            setActiveLocation={this.setActiveLocation}
           />
         </div>
         <div className="mapContainer">
         <Map
             locations={this.state.locations}
+            activeLocation={this.state.activeLocation}
         />
         </div>
       </div>
