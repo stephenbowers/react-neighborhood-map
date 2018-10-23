@@ -18,8 +18,10 @@ class App extends Component {
     super(props);
     this.state = {
         locations: [],
+        markers: [],
         query: '',
-        activeLocation: []
+        activeLocation: {},
+        activeMarker: []
     };
   }
 
@@ -27,6 +29,7 @@ class App extends Component {
     foursquare.venues.getVenues(params)
         .then(res=> {
             this.setState({ locations: res.response.venues });
+            this.setState({ markers: res.response.venues });
         });
   }
 
@@ -42,25 +45,32 @@ class App extends Component {
       foursquare.venues.getVenues(params)
         .then(res=> {
           this.setState({ locations: res.response.venues });
+          this.setState({ markers: res.response.venues });
         });
     } else {
       this.setState({ locations: [] })
+      this.setState({ markers: [] })
     }
     
   }
 
-  setActiveMarker = (location) => {
+  setActiveMarker = (newActiveLocation, currentMarkers) => {
     let newActiveMarker = [];
-
-    newActiveMarker.push(location);
-    this.setState({ activeLocation: newActiveMarker});
+    newActiveMarker.push(newActiveLocation);
+    this.setState({ activeLocation: newActiveLocation });
+    this.setState({ activeMarker: newActiveMarker });
+    let newMarkers = currentMarkers.filter(loc => loc.id !== newActiveLocation.id);
+    this.setState({ markers: newMarkers });
   }
 
   setActiveLocation = (location) => {
-    console.log("The Active Location is: " + location.name);
-    console.log(location);
-    // Toggle active class on sidebar info
-    this.setActiveMarker(location);
+    let newActiveLocation = location;
+
+    // Reset Markers
+    let currentMarkers = this.state.locations;
+
+    // TO DO: Toggle active class on sidebar info
+    this.setActiveMarker(newActiveLocation, currentMarkers);
   }
 
   render() {
@@ -76,8 +86,8 @@ class App extends Component {
         </div>
         <div className="mapContainer">
         <Map
-            locations={this.state.locations}
-            activeLocation={this.state.activeLocation}
+            markers={this.state.markers}
+            activeMarker={this.state.activeMarker}
         />
         </div>
       </div>

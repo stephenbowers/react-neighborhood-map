@@ -6,28 +6,27 @@ import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-map
 const MyMapComponent = withScriptjs(withGoogleMap((props) =>
 
   <GoogleMap
-    locations={props.locations}
-    activeLocation={props.activeLocation}
+    markers={props.markers}
+    activeMarker={props.activeMarker}
     defaultZoom={17}
     defaultCenter={{ lat: 32.748, lng: -117.159 }}
   >
     {props.isMarkerShown && 
         <>
-        {props.locations.map(location=> {
+        {props.markers.map(marker=> {
             return <Marker 
-                        key={location.id}
-                        keyProp={location.id}
-                        position={location.location}
-                        title={location.name}
-                        defaultAnimation={google.maps.Animation.DROP}
+                        key={marker.id}
+                        keyProp={marker.id}
+                        position={marker.location}
+                        title={marker.name}
                     />
         })}
-        {props.activeLocation.map(location=> {
+        {props.activeMarker.map(marker=> {
             return <Marker
-                        key={location.id}
-                        keyProp={location.id}
-                        position={location.location}
-                        title={location.name}
+                        key={"active." + marker.id}
+                        keyProp={"active." + marker.id}
+                        position={marker.location}
+                        title={marker.name}
                         animation={google.maps.Animation.BOUNCE}
                     />
         })}
@@ -41,8 +40,8 @@ export default class Map extends Component {
     render() {
         return(
             <MyMapComponent
-                locations={this.props.locations}
-                activeLocation={this.props.activeLocation}
+                markers={this.props.markers}
+                activeMarker={this.props.activeMarker}
                 isMarkerShown
                 googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyBPoQWOSF6VDoZE_Z_FUKv8rLTvlDFuf_I"
                 loadingElement={<div style={{ height: `100%` }} />}
