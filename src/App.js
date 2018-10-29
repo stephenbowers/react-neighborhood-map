@@ -21,7 +21,11 @@ class App extends Component {
         markers: [],
         query: '',
         activeLocation: {},
-        activeMarker: []
+        activeMarker: [],
+        clickedMarker: {},
+        clickedName: '',
+        clickedAddress: '',
+        clickedCategory: ''
     };
   }
 
@@ -73,6 +77,15 @@ class App extends Component {
     this.setActiveMarker(newActiveLocation, currentMarkers);
   }
 
+  setClickedMarker = (marker) => {
+    // TO DO: Clear Bouncing location
+    let category = marker["categories"][0]["name"];
+    this.setState({ clickedMarker: marker });
+    this.setState({ clickedName: marker.name});
+    this.setState({ clickedAddress: marker.location.address});
+    this.setState({ clickedCategory: category });
+  }
+
   render() {
     return (
       <div className="App">
@@ -82,12 +95,18 @@ class App extends Component {
             query={this.state.query}
             getSearchResults={this.getSearchResults}
             setActiveLocation={this.setActiveLocation}
+            activeLocation={this.activeLocation}
           />
         </div>
         <div className="mapContainer">
         <Map
             markers={this.state.markers}
             activeMarker={this.state.activeMarker}
+            setClickedMarker={this.setClickedMarker}
+            clickedMarker={this.state.clickedMarker}
+            clickedName={this.state.clickedName}
+            clickedAddress={this.state.clickedAddress}
+            clickedCategory={this.state.clickedCategory}
         />
         </div>
       </div>
