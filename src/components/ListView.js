@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
-
+import MoreInfo from './MoreInfo';
 class ListView extends Component {
-
   
+
+  handleClick = (location) => {
+    console.log("Location Clicked!");
+    this.props.setActiveLocation(location);
+  }
 
   render() {
     return (
@@ -20,21 +24,24 @@ class ListView extends Component {
 
         <div className="searchResults">
           <ul>
-              {/* 
-                TODO: When location clicked (div becomes 'active'), more info is displayed
-              */}
-              { this.props.locations.map(location=> 
+              {this.props.locations.map(location=> 
                   <div 
                     key={location.id}
+                    location={location.id}
                     className="locationResult"
-                    onClick={(event) => this.props.setActiveLocation(location)}
+                    onClick={() => this.handleClick(location)}
                   >
-                    <p 
-                      className="locationName"
+                    <div 
+                      className="locationInfoContainer"
                     >
-                      {location.name}
-                    </p>
-                  </div>) 
+                      <MoreInfo 
+                        name={location.name}
+                        location={location.location.address}
+                        category={location["categories"][0]["name"]}
+                      />
+                    </div>
+                  </div>
+                  ) 
               }
           </ul>
         </div>
