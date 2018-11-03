@@ -17,5 +17,4 @@ The Map was powered by [Google Maps API](http://developers.google.com/maps).
 The Places information was powered by [Foursquare](https://developer.foursquare.com/).
 
 The following libraries were also utilized:
-  -[react-google-maps](https://tomchentw.github.io/react-google-maps/).
-  -[react-hamburger-menu](https://github.com/negomi/react-burger-menu).
+  [react-google-maps](https://tomchentw.github.io/react-google-maps/) and [react-hamburger-menu](https://github.com/negomi/react-burger-menu).
