@@ -1,13 +1,70 @@
-
-.listContainer {
+#listContainer {
   width: 25%;
+  height: 100vh;
+  display: block;
+  background-color: white;
+  min-width: 320px;
 }
 
-.mapContainer {
+#mapContainer {
   width: 75%;
+  height: 100vh;
+  display: block;
 }
 
 .App {
   display: flex;
   flex-direction: row;
+}
+
+@media only screen and (max-width: 900px) {
+  #listContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 350px;
+    z-index: 2;
+  }
+
+  #mapContainer {
+    position: absolute;
+    width: 100vw;
+  }
+
+  .App {
+    display: block;
+  }
+
+  .closed {
+    transform: translate3d(-300px, 0, 0);
+  }
+  
+  .open {
+    transform: translate3d(0px, 0, 0);
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .App {
+    display: block;
+  }
+
+  #listContainer {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 300px;
+  }
+
+  #mapContainer {
+    width: 100vw;
+  }
+
+  .closed {
+    transform: translate3d(-250px, 0, 0);
+  }
+  
+  .open {
+    transform: translate3d(0px, 0, 0);
+  }
 }

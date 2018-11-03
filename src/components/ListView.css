@@ -1,0 +1,10 @@
+.menuIcon {
+  display: none;
+}
+
+@media only screen and (max-width: 900px) {
+  .menuIcon {
+    display: flex;
+    justify-content: flex-end;
+  }
+}
