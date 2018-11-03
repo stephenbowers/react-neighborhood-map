@@ -1,10 +1,10 @@
-#React Neighborhood Map
+# React Neighborhood Map
 This is a neighborhood map in which you may search for places in the area and get more information about those places.  The search in the sidebar will generate the corresponding map markers on the map.
 
-##Requirements
+## Requirements
 A modern web browser and active Internet connection are required.
 
-##Running the App
+## Running the App
 Use 'npm start'
 
 In order to get service worker utilities, you need to run the app in production mode.  To do this, use 'npm run build'
