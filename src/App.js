@@ -26,16 +26,26 @@ class App extends Component {
         clickedMarker: {},
         clickedName: '',
         clickedAddress: '',
-        clickedCategory: ''
+        clickedCategory: '',
+        open: true
     };
   }
 
   componentDidMount() {
-    foursquare.venues.getVenues(params)
+    window.gm_authFailure = () => {
+      alert('Error: /n Failed to get Google map.')
+      console.log('ERROR:  Failed to get Google map.');
+    }
+
+    try {
+      foursquare.venues.getVenues(params)
         .then(res=> {
             this.setState({ locations: res.response.venues });
             this.setState({ markers: res.response.venues });
         });
+    } catch (error) {
+      alert("Failed to get data from Foursquare.");
+    }
   }
 
   updateQuery = (query) => {
@@ -44,16 +54,21 @@ class App extends Component {
   }
 
   getSearchResults = (query) => {
-    if (this.state.query && query !== '') {
+    try {
+      if (this.state.query && query !== '') {
       foursquare.venues.getVenues(params)
         .then(res=> {
           this.setState({ locations: res.response.venues });
           this.setState({ markers: res.response.venues });
         });
-    } else {
-      this.setState({ locations: [] })
-      this.setState({ markers: [] })
+      } else {
+        this.setState({ locations: [] })
+        this.setState({ markers: [] })
+      }
+    } catch (error) {
+      alert("Search failed to get results from Foursquare.");
     }
+    
     
   }
 
@@ -76,7 +91,6 @@ class App extends Component {
   }
 
   setClickedMarker = (marker) => {
-    // TO DO: Clear Bouncing location
     let category = marker["categories"][0]["name"];
     this.setState({ clickedMarker: marker });
     this.setState({ clickedName: marker.name});
@@ -84,10 +98,20 @@ class App extends Component {
     this.setState({ clickedCategory: category });
   }
 
+  clickMenu = () => {
+    this.setState({
+      open: !this.state.open
+    });
+  }
+
   render() {
     return (
       <div className="App" role="application" aria-label="main-app">
-        <aside className="listContainer" aria-label="location-list">
+        <aside 
+          id="listContainer"
+          aria-label="location-list"
+          className={ this.state.open ? "open" : "closed" }
+        >
           <ErrorBoundary>
             <ListView 
               locations={this.state.locations}
@@ -96,12 +120,14 @@ class App extends Component {
               getSearchResults={this.getSearchResults}
               setActiveLocation={this.setActiveLocation}
               activeLocation={this.state.activeLocation}
+              open={this.state.open}
+              clickMenu={this.clickMenu}
               aria-label="location-list"
             />
           </ErrorBoundary>
-          
         </aside>
-        <main className="mapContainer" role="application" aria-label="map">
+        
+        <main id="mapContainer" role="application" aria-label="map">
           <ErrorBoundary>
             <Map
                 markers={this.state.markers}

@@ -11,6 +11,7 @@
     "react-dom": "^16.5.2",
     "react-foursquare": "^1.0.3",
     "react-google-maps": "^9.4.5",
+    "react-hamburger-menu": "^1.1.1",
     "react-scripts": "2.0.4",
     "recompose": "^0.30.0",
     "simple-flexbox": "^1.2.0"

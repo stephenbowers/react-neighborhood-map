@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
+import HamburgerMenu from 'react-hamburger-menu';
+import ErrorBoundary from './ErrorBoundary';
+import './ListView.css';
 
 class ListView extends Component {
 
   constructor() {
       super();
       this.state = {
-        isActiveLocation: false
+        isActiveLocation: false,
       }
     }
   
@@ -24,7 +27,18 @@ class ListView extends Component {
 
   render() {
     return (
-      <div className="locationList" aria-label="location list">
+      <div className="locationList" aria-label="location list"
+      >
+        <div className="menuIcon">
+          <ErrorBoundary>
+            <HamburgerMenu
+              isOpen={this.props.open}
+              menuClicked={this.props.clickMenu.bind(this)}
+            />
+          </ErrorBoundary>
+        </div>
+        
+
         <div className="neighborhoodHeading" aria-label="main heading">
           <h1>Hillcrest Locations</h1>
           <h4>Powered by Foursquare and Google Maps API</h4>
