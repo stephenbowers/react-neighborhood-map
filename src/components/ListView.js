@@ -1,28 +1,64 @@
 import React, { Component } from 'react';
-import MoreInfo from './MoreInfo';
-class ListView extends Component {
-  
 
+class ListView extends Component {
+
+  constructor() {
+      super();
+      this.state = {
+        isActiveLocation: false
+      }
+    }
+  
   handleClick = (location) => {
     console.log("Location Clicked!");
+    console.log("Location is: " + location);
     this.props.setActiveLocation(location);
+    this.showActiveLocationInfo();
+  }
+
+  showActiveLocationInfo = () => {
+    if (this.state.isActiveLocation === false) {
+      this.setState({ isActiveLocation: true });
+    }
   }
 
   render() {
     return (
-      <div className="locationList">
-        <h1 className="neighborhoodHeading">Hillcrest Locations</h1>
+      <div className="locationList" aria-label="location list">
+        <div className="neighborhoodHeading" aria-label="main heading">
+          <h1>Hillcrest Locations</h1>
+          <h4>Powered by Foursquare and Google Maps API</h4>
+        </div>
 
-        <div className="search">
+        <div className="search" role="search">
           <input 
             type="text"
             placeholder="E.g. coffee, burgers, bar,..."
             value={this.props.query}
-            onChange={(event) => this.props.getSearchResults(event.target.value)}
+            onChange={(event) => this.props.updateQuery(event.target.value)}
+            aria-label="search text"
+          />
+          <input
+            type="submit"
+            value="Search"
+            onClick={() => this.props.getSearchResults(this.props.query)}
           />
         </div>
 
-        <div className="searchResults">
+        <div className="searchResults" aria-label="search results">
+          {(this.props.activeLocation !== undefined && this.state.isActiveLocation === true) &&
+            <div className="activeLocationInfo" aria-label="selected location">
+              {this.props.activeLocation.name &&
+              <h3>{this.props.activeLocation.name}</h3>
+              }
+              {this.props.activeLocation.location.address &&
+              <p>{this.props.activeLocation.location.address}</p>
+              }
+              {this.props.activeLocation["categories"][0]["name"] &&
+              <p>Category: {this.props.activeLocation["categories"][0]["name"]}</p>
+              }
+            </div>
+          }
           <ul>
               {this.props.locations.map(location=> 
                   <div 
@@ -30,16 +66,9 @@ class ListView extends Component {
                     location={location.id}
                     className="locationResult"
                     onClick={() => this.handleClick(location)}
+                    aria-label="location"
                   >
-                    <div 
-                      className="locationInfoContainer"
-                    >
-                      <MoreInfo 
-                        name={location.name}
-                        location={location.location.address}
-                        category={location["categories"][0]["name"]}
-                      />
-                    </div>
+                    <p>{location.name}</p>
                   </div>
                   ) 
               }
