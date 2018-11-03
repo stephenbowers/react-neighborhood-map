@@ -67,6 +67,7 @@ class ListView extends Component {
                     className="locationResult"
                     onClick={() => this.handleClick(location)}
                     aria-label="location"
+                    tabIndex="0"
                   >
                     <p>{location.name}</p>
                   </div>
