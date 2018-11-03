@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from 'react-google-maps';
+import ErrorBoundary from './ErrorBoundary';
 
 const MyMapComponent = withScriptjs(withGoogleMap((props) =>
 
@@ -16,6 +17,8 @@ const MyMapComponent = withScriptjs(withGoogleMap((props) =>
     clickedCategory={props.clickedCategory}
     defaultZoom={18}
     defaultCenter={{ lat: 32.748, lng: -117.159 }}
+    role="application"
+    aria-label="map"
   >
     {props.isMarkerShown && 
         <>
@@ -28,11 +31,13 @@ const MyMapComponent = withScriptjs(withGoogleMap((props) =>
                         clickedAddress={props.clickedAddress}
                         clickedCategory={props.clickedCategory}
                         onClick={(event) => props.clickMarker(marker)}
+                        aria-label="map marker"
                     >
                     {props.clickedMarker.id === marker.id &&
                         <InfoWindow
+                            aria-label="info window"
                         >
-                            <div>
+                            <div aria-label="location details">
                                 <h2>{props.clickedName}</h2>
                                 <h4>{props.clickedAddress}</h4>
                                 {props.clickedCategory &&
@@ -53,11 +58,13 @@ const MyMapComponent = withScriptjs(withGoogleMap((props) =>
                         clickedCategory={props.clickedCategory}
                         onClick={(event) => props.clickMarker(marker)}
                         animation={google.maps.Animation.BOUNCE}
+                        aria-label="active map marker"
                     >
                     {props.clickedMarker.id === marker.id &&
                         <InfoWindow
+                            aria-label="info window"
                         >
-                            <div>
+                            <div aria-label="location details">
                                 <h2>{props.clickedName}</h2>
                                 <h4>{props.clickedAddress}</h4>
                                 {props.clickedCategory &&
@@ -84,22 +91,26 @@ export default class Map extends Component {
     }
     render() {
         return(
-            <MyMapComponent
-                markers={this.props.markers}
-                activeMarker={this.props.activeMarker}
-                isMarkerShown
-                clickMarker={this.clickMarker}
-                setClickedMarker={this.props.setClickedMarker}
-                clickedMarker={this.props.clickedMarker}
-                clickedName={this.props.clickedName}
-                clickedAddress={this.props.clickedAddress}
-                clickedCategory={this.props.clickedCategory}
-                googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyBPoQWOSF6VDoZE_Z_FUKv8rLTvlDFuf_I"
-                loadingElement={<div style={{ height: `100%` }} />}
-                containerElement={<div style={{ height: `100%`}} />}
-                mapElement={<div style={{ height: `100%` }} />}
-            >
-            </MyMapComponent>
+            <ErrorBoundary>
+                <MyMapComponent
+                    markers={this.props.markers}
+                    activeMarker={this.props.activeMarker}
+                    isMarkerShown
+                    clickMarker={this.clickMarker}
+                    setClickedMarker={this.props.setClickedMarker}
+                    clickedMarker={this.props.clickedMarker}
+                    clickedName={this.props.clickedName}
+                    clickedAddress={this.props.clickedAddress}
+                    clickedCategory={this.props.clickedCategory}
+                    googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyBPoQWOSF6VDoZE_Z_FUKv8rLTvlDFuf_I"
+                    loadingElement={<div style={{ height: `100%` }} />}
+                    containerElement={<div style={{ height: `100%`}} />}
+                    mapElement={<div style={{ height: `100%` }} />}
+                    role="application"
+                    aria-label="map"
+                >
+                </MyMapComponent>
+            </ErrorBoundary>
         );
     }
 }
