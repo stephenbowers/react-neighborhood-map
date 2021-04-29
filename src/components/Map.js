@@ -102,7 +102,7 @@ export default class Map extends Component {
                     clickedName={this.props.clickedName}
                     clickedAddress={this.props.clickedAddress}
                     clickedCategory={this.props.clickedCategory}
-                    googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyBPoQWOSF6VDoZE_Z_FUKv8rLTvlDFuf_I"
+                    /* googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp" Temporarily removed */
                     loadingElement={<div style={{ height: `100%` }} />}
                     containerElement={<div style={{ height: `100%`}} />}
                     mapElement={<div style={{ height: `100%` }} />}
