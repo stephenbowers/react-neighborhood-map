@@ -6,7 +6,7 @@
     "@types/googlemaps": "^3.30.16",
     "@types/markerclustererplus": "^2.1.33",
     "@types/react": "^15.6.19",
-    "ajv": "^6.5.4",
+    "ajv": "^6.12.3",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-foursquare": "^1.0.3",
