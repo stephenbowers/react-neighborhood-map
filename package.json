@@ -12,9 +12,9 @@
     "react-foursquare": "^1.0.3",
     "react-google-maps": "^9.4.5",
     "react-hamburger-menu": "^1.1.1",
-    "react-scripts": "2.0.4",
+    "react-scripts": "5.0.1",
     "recompose": "^0.30.0",
-    "simple-flexbox": "^1.2.0"
+    "simple-flexbox": "^2.3.3"
   },
   "scripts": {
     "start": "react-scripts start",
